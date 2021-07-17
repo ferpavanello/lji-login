@@ -16,7 +16,7 @@ export default function LoginForm() {
     if (!isValidEmail(emailContent)) {
       setEmailError({
         isValid: false,
-        message: 'This is not a valid email, please verify'
+        message: 'This is not a valid email.'
       })
       return
     }
@@ -25,7 +25,7 @@ export default function LoginForm() {
   }
 
   return (
-    <form
+    <form className="login-form"
       onSubmit={(event) => {
         event.preventDefault()
         console.log(this.state)
