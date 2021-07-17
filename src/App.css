@@ -2,3 +2,11 @@
   display: grid;
   grid-template-columns: 6fr 6fr;
 }
+
+.form-wrapper {
+  margin: auto;
+}
+
+.form-header {
+  text-align: center;
+}

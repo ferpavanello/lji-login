@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { TextField, Button } from '@material-ui/core'
+import './LoginForm.css'
+import { TextField, Button, FormControlLabel, Checkbox, Link } from '@material-ui/core'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState({ message: '', isValid: true })
+  const [rememberMe, setRememberMe] = useState(false)
 
   function isValidEmail (content) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -25,7 +27,7 @@ export default function LoginForm() {
   }
 
   return (
-    <form className="login-form"
+    <form
       onSubmit={(event) => {
         event.preventDefault()
         console.log(this.state)
@@ -62,7 +64,23 @@ export default function LoginForm() {
         margin="normal"
         fullWidth
       />
-      <Button type="submit" variant="contained" color="primary">
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={rememberMe}
+            onChange={(event) => {
+              setRememberMe(event.target.checked)
+            }}
+            name="rememberMe"
+            color="primary"
+          />
+        }
+        label="Remember me"
+      />
+      <Link href="#" className="forgot-password" onClick={event => event.preventDefault()}>
+        Forgot Password?
+      </Link>
+      <Button type="submit" variant="contained" color="primary" fullWidth>
         Login
       </Button>
     </form>

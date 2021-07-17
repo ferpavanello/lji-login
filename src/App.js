@@ -6,7 +6,10 @@ export default function App() {
   return (
     <div className="login-wrapper">
       <LoginImage />
-      <LoginForm />
+      <div className="form-wrapper">
+        <h1 className="form-header">Login to continue</h1>
+        <LoginForm />
+      </div>
     </div>
   );
 }
