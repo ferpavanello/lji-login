@@ -20,7 +20,7 @@ export default function RegisterForm ({ formToRender }) {
     <form onSubmit={formSubmit}>
       <Link href="#" className="register" onClick={event => {
         event.preventDefault()
-        formToRender('LoginForm')
+        formToRender('Login')
       }}>
         Back to login
       </Link>

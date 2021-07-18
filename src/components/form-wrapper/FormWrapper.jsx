@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import './FormWrapper.css'
 import LoginWrapper from './../login-wrapper/LoginWrapper'
-import RegisterForm from './../register-form/RegisterForm'
+import RegisterWrapper from './../register-wrapper/RegisterWrapper'
 
 export default function FormWrapper () {
-  const [formToRender, setFormToRender] = useState('LoginWrapper')
+  const [formToRender, setFormToRender] = useState('Login')
 
   function formComponent () {
     switch (formToRender) {
-      case 'RegisterForm':
-        return <RegisterForm formToRender={setFormToRender} />
+      case 'Register':
+        return <RegisterWrapper formToRender={setFormToRender} />
       default:
         return <LoginWrapper formToRender={setFormToRender} />
     }

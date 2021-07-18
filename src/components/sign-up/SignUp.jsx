@@ -11,7 +11,7 @@ export default function SignUp ({ formToRender }) {
       <p>
         <Link href="#" className="register" onClick={event => {
           event.preventDefault()
-          formToRender('RegisterForm')
+          formToRender('Register')
         }}>
           Register
         </Link>
