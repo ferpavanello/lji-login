@@ -1,17 +1,13 @@
+import React, { useState } from 'react'
 import './App.css';
 import LoginImage from './components/login-image/LoginImage'
-import LoginForm from './components/login-form/LoginForm'
-import SignUp from './components/sign-up/SignUp'
+import FormWrapper from './components/form-wrapper/FormWrapper'
 
 export default function App() {
   return (
-    <div className="login-wrapper">
+    <div className="app-wrapper">
       <LoginImage />
-      <div className="form-wrapper">
-        <h1 className="form-header">Login to continue</h1>
-        <LoginForm />
-        <SignUp />
-      </div>
+      <FormWrapper />
     </div>
   );
 }
