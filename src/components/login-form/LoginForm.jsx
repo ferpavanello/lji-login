@@ -8,9 +8,38 @@ import RemeberMe from './../remember-me/RememberMe'
 export default function LoginForm({ formToRender }) {
   const [loginData, setLoginData] = useState({});
 
-  function formSubmit(event) {
+  async function formSubmit(event) {
     event.preventDefault();
-    console.log('loginData', loginData)
+
+    const data = JSON.stringify({
+      query: `{
+        userByFields(filter: {
+          email:"${loginData.email}",
+          password:"${loginData.password}"
+        }) {
+          id
+        }
+      }`
+    })
+  
+    const response = await fetch(
+      'https://lji-login-api.herokuapp.com',
+      {
+        method: 'post',
+        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': data.length,
+          'User-Agent': 'Node',
+        },
+      }
+    )
+  
+    const bodyJson = await response.json()
+    const user = bodyJson.data && bodyJson.data.userByFields
+    if (user && user.id) {
+      console.log(user)
+    }
   }
 
   function collectData (data) {

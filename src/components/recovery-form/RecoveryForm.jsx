@@ -12,10 +12,11 @@ export default function PasswordRecoveryForm ({ formToRender }) {
 
     const data = JSON.stringify({
       query: `{
-        userByNameEmail(name:"${recoveryData.name}", email:"${recoveryData.email}") {
-          name
-          email
-          attempts
+        userByFields(filter: {
+          name:"${recoveryData.name}",
+          email:"${recoveryData.email}"
+        }) {
+          password
         }
       }`
     })
@@ -34,10 +35,10 @@ export default function PasswordRecoveryForm ({ formToRender }) {
     )
   
     const bodyJson = await response.json()
-    const user = bodyJson.data && bodyJson.data.userByNameEmail
-    if (user) {
+    const user = bodyJson.data && bodyJson.data.userByFields
+    if (user && user.password) {
       setUserPassword(user.password)
-      console.log(user);
+      console.log(user)
     }
   }
 
