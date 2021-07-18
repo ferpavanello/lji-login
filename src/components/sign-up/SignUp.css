@@ -1,0 +1,14 @@
+.signup-wrapper {
+  padding-top: 30px;
+  text-align: center;
+  color: gray;
+}
+
+.group-images {
+  padding-top: 10px;
+}
+
+.group-images > .logo {
+  height: 50px;
+  width: 50px;
+}
