@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 import { Button, Link } from '@material-ui/core'
 import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
-import PasswordField from './../password-field/PasswordField'
 
-export default function RegisterForm ({ formToRender }) {
-  const [registerData, setRegisterData] = useState({});
+export default function PasswordRecoveryForm ({ formToRender }) {
+  const [recoveryData, setRecoveryData] = useState({});
 
   function formSubmit(event) {
     event.preventDefault();
-    console.log('registerData', registerData)
+    console.log('recoveryData', recoveryData)
   }
 
   function collectData (data) {
-    setRegisterData({ ...registerData, ...data })
+    setRecoveryData({ ...recoveryData, ...data })
   }
 
   return (
@@ -26,9 +25,8 @@ export default function RegisterForm ({ formToRender }) {
       </Link>
       <NameField collectData={collectData} />
       <EmailField collectData={collectData} />
-      <PasswordField collectData={collectData} />
       <Button type="submit" variant="contained" color="primary" fullWidth>
-        Register
+        See password
       </Button>
     </form>
   )

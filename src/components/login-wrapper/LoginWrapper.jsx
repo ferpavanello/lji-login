@@ -7,7 +7,7 @@ export default function Loginrapper ({ formToRender }) {
   return (
     <div>
       <FormTitle content="Login to continue" />
-      <LoginForm />
+      <LoginForm formToRender={formToRender} />
       <SignUp formToRender={formToRender} />
     </div>
   )
