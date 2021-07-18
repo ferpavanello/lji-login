@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
 
-export default function EmailField () {
+export default function EmailField ({ collectData }) {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState({ message: '', isValid: true })
 
   function isValidEmail (content) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email)
+    return re.test(content)
   }
 
   function emailValidation (event){
@@ -21,6 +21,7 @@ export default function EmailField () {
     }
     setEmailError({ isValid: true, message: '' })
     setEmail(emailContent)
+    collectData({ email: emailContent })
   }
 
   return (

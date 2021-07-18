@@ -1,38 +1,29 @@
 import React, { useState } from 'react'
 import './LoginForm.css'
-import { Button, FormControlLabel, Checkbox, Link } from '@material-ui/core'
+import { Button, Link } from '@material-ui/core'
 import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
+import RemeberMe from './../remember-me/RememberMe'
 
 export default function LoginForm() {
-  const [rememberMe, setRememberMe] = useState(false)
+  const [collectedData, setCollectedData] = useState({});
 
-  function formSubmit(data) {
-    console.log('data', data)
+  function formSubmit(event) {
+    event.preventDefault();
+    console.log('collectedData', collectedData)
+  }
+
+  function collectData (data) {
+    setCollectedData({ ...collectedData, ...data })
   }
 
   return (
     <form
-      onSubmit={(event) => {
-        event.preventDefault()
-        formSubmit(event)
-      }}
+      onSubmit={formSubmit}
     >
-      <EmailField />
-      <PasswordField />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={rememberMe}
-            onChange={(event) => {
-              setRememberMe(event.target.checked)
-            }}
-            name="rememberMe"
-            color="primary"
-          />
-        }
-        label="Remember me"
-      />
+      <EmailField collectData={collectData} />
+      <PasswordField collectData={collectData} />
+      <RemeberMe collectData={collectData} />
       <Link href="#" className="forgot-password" onClick={event => event.preventDefault()}>
         Forgot Password?
       </Link>

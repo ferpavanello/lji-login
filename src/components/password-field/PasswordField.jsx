@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
 
-export default function PasswordField () {
+export default function PasswordField ({ collectData }) {
   const [password, setPassword] = useState('')
 
   return (
     <TextField
       value={password}
       onChange={(event) => {
-        setPassword(event.target.value)
+        const passwordValue = event.target.value
+        setPassword(passwordValue)
+        collectData({ password: passwordValue })
       }}
       id="password"
       name="password"
