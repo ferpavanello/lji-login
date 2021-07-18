@@ -6,21 +6,19 @@ import PasswordField from './../password-field/PasswordField'
 import RemeberMe from './../remember-me/RememberMe'
 
 export default function LoginForm() {
-  const [collectedData, setCollectedData] = useState({});
+  const [loginData, setLoginData] = useState({});
 
   function formSubmit(event) {
     event.preventDefault();
-    console.log('collectedData', collectedData)
+    console.log('loginData', loginData)
   }
 
   function collectData (data) {
-    setCollectedData({ ...collectedData, ...data })
+    setLoginData({ ...loginData, ...data })
   }
 
   return (
-    <form
-      onSubmit={formSubmit}
-    >
+    <form onSubmit={formSubmit}>
       <EmailField collectData={collectData} />
       <PasswordField collectData={collectData} />
       <RemeberMe collectData={collectData} />
