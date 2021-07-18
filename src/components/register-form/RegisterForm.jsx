@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Link } from '@material-ui/core'
+import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
 
@@ -23,6 +24,7 @@ export default function RegisterForm ({ formToRender }) {
       }}>
         Back to login
       </Link>
+      <NameField collectData={collectData} />
       <EmailField collectData={collectData} />
       <PasswordField collectData={collectData} />
       <Button type="submit" variant="contained" color="primary" fullWidth>
