@@ -7,9 +7,43 @@ import PasswordField from './../password-field/PasswordField'
 export default function RegisterForm ({ formToRender }) {
   const [registerData, setRegisterData] = useState({});
 
-  function formSubmit(event) {
+  async function formSubmit(event) {
     event.preventDefault();
-    console.log('registerData', registerData)
+
+    const data = JSON.stringify({
+      query: `
+        mutation {
+          createUser(newUser: {
+            name: "${registerData.name}",
+            email: "${registerData.email}",
+            password: "${registerData.password}"
+          }) {
+            name
+            email
+            password
+            attempts
+          }
+        }`
+    })
+  
+    const response = await fetch(
+      'https://lji-login-api.herokuapp.com',
+      {
+        method: 'post',
+        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': data.length,
+          'User-Agent': 'Node',
+        },
+      }
+    )
+  
+    const bodyJson = await response.json()
+    const user = bodyJson.data && bodyJson.data.createUser
+    if (user) {
+      console.log('success', user);
+    }
   }
 
   function collectData (data) {
