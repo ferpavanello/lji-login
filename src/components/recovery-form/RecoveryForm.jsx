@@ -8,6 +8,14 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
   const [recoveryData, setRecoveryData] = useState({})
   const [userPassword, setUserPassword] = useState('')
 
+  function sendNotification (message, severity) {
+    setNotificationInfo({
+      message,
+      severity,
+      openNotification: true
+    })
+  }
+
   async function formSubmit (event) {
     event.preventDefault();
 
@@ -18,17 +26,17 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
           name:"${recoveryData.name}",
           email:"${recoveryData.email}"
         }) {
-          id
           password
         }
       }`
     }
-    const message = {
-      success: 'User was found',
-      error: 'User not found'
-    }
-    const user = await apiRequest(query, message, setNotificationInfo) || {}
+    const user = await apiRequest(query) || {}
     setUserPassword(user.password || '')
+    if (user.password) {
+      sendNotification('User was found', 'success')
+    } else {
+      sendNotification('User not found', 'error')
+    }
   }
 
   function collectData (data) {

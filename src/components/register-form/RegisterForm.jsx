@@ -8,7 +8,15 @@ import apiRequest from './../../utils/apiRequest'
 export default function RegisterForm ({ setFormToRender, setNotificationInfo }) {
   const [registerData, setRegisterData] = useState({});
 
-  function formSubmit (event) {
+  function sendNotification (message, severity) {
+    setNotificationInfo({
+      message,
+      severity,
+      openNotification: true
+    })
+  }
+
+  async function formSubmit (event) {
     event.preventDefault();
 
     const query = {
@@ -24,11 +32,12 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
           }
         }`
     }
-    const message = {
-      success: 'User has been registered',
-      error: 'Error to register the user'
+    const user = await apiRequest(query) || {}
+    if (user.id) {
+      sendNotification('User has been registered', 'success')
+    } else {
+      sendNotification('Error to register the user', 'error')
     }
-    apiRequest(query, message, setNotificationInfo)
   }
 
   function collectData (data) {
