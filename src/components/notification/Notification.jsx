@@ -5,10 +5,7 @@ import { Alert } from '@material-ui/lab'
 export default function Notification ({ notificationInfo, setNotificationInfo }) {
   const { message, severity, openNotification=false } = notificationInfo
 
-  function handleClose (event, reason) {
-    if (reason === 'clickaway') {
-      return
-    }
+  function handleClose () {
     setNotificationInfo({ openNotification: false })
   }
   

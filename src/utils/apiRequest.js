@@ -1,4 +1,4 @@
-export default async function apiRequest (query, message, setNotificationInfo) {
+export default async function apiRequest (query) {
   const data = JSON.stringify({
     query: query.body
   })
@@ -17,19 +17,5 @@ export default async function apiRequest (query, message, setNotificationInfo) {
   )
 
   const bodyJson = await response.json()
-  const user = bodyJson.data && bodyJson.data[query.name]
-  if (user && user.id) {
-    setNotificationInfo({
-      message: message.success,
-      severity: 'success',
-      openNotification: true
-    })
-    console.log(user)
-    return user
-  }
-  setNotificationInfo({
-    message: message.error,
-    severity: 'error',
-    openNotification: true
-  })
+  return bodyJson.data && bodyJson.data[query.name]
 }

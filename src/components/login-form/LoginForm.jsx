@@ -9,25 +9,39 @@ import apiRequest from './../../utils/apiRequest'
 export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   const [loginData, setLoginData] = useState({});
 
-  function formSubmit (event) {
+  function sendNotification (message, severity) {
+    setNotificationInfo({
+      message,
+      severity,
+      openNotification: true
+    })
+  }
+
+  async function formSubmit (event) {
     event.preventDefault();
 
     const query = {
-      name: 'userByFields',
-      body: `{
-        userByFields(filter: {
-          email:"${loginData.email}",
-          password:"${loginData.password}"
-        }) {
-          id
-        }
-      }`
+      name: 'userLogin',
+      body: `
+        mutation {
+          userLogin(
+            email:"${loginData.email}",
+            password:"${loginData.password}"
+          ) {
+            isBlocked
+            isLoginCorrect
+          }
+        }`
     }
-    const message = {
-      success: 'User is logged',
-      error: 'Invalid password'
+    const apiResponse = await apiRequest(query)
+    console.log('apiResponse', apiResponse)
+    if (apiResponse.isBlocked) {
+      sendNotification('User is blocked', 'error')
+    } else if (apiResponse.isLoginCorrect) {
+      sendNotification('User is logged', 'success')
+    } else {
+      sendNotification('Invalid password', 'error')
     }
-    apiRequest(query, message, setNotificationInfo)
   }
 
   function collectData (data) {
