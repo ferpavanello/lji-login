@@ -5,7 +5,7 @@ import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
 import RemeberMe from './../remember-me/RememberMe'
 
-export default function LoginForm({ formToRender }) {
+export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   const [loginData, setLoginData] = useState({});
 
   async function formSubmit(event) {
@@ -38,8 +38,19 @@ export default function LoginForm({ formToRender }) {
     const bodyJson = await response.json()
     const user = bodyJson.data && bodyJson.data.userByFields
     if (user && user.id) {
+      setNotificationInfo({
+        message: 'User is logged',
+        severity: 'success',
+        openNotification: true
+      })
       console.log(user)
+      return
     }
+    setNotificationInfo({
+      message: 'Invalid password',
+      severity: 'error',
+      openNotification: true
+    })
   }
 
   function collectData (data) {
@@ -53,7 +64,7 @@ export default function LoginForm({ formToRender }) {
       <RemeberMe collectData={collectData} />
       <Link href="#" className="forgot-password" onClick={event => {
         event.preventDefault()
-        formToRender('Recovery')
+        setFormToRender('Recovery')
       }}>
         Forgot Password?
       </Link>

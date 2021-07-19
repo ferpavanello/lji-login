@@ -4,7 +4,7 @@ import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
 
-export default function RegisterForm ({ formToRender }) {
+export default function RegisterForm ({ setFormToRender, setNotificationInfo }) {
   const [registerData, setRegisterData] = useState({});
 
   async function formSubmit(event) {
@@ -54,7 +54,7 @@ export default function RegisterForm ({ formToRender }) {
     <form onSubmit={formSubmit}>
       <Link href="#" onClick={event => {
         event.preventDefault()
-        formToRender('Login')
+        setFormToRender('Login')
       }}>
         Back to login
       </Link>

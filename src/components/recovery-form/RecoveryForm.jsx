@@ -3,7 +3,7 @@ import { Button, Link, TextField } from '@material-ui/core'
 import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
 
-export default function PasswordRecoveryForm ({ formToRender }) {
+export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) {
   const [recoveryData, setRecoveryData] = useState({})
   const [userPassword, setUserPassword] = useState('')
 
@@ -50,7 +50,7 @@ export default function PasswordRecoveryForm ({ formToRender }) {
     <form onSubmit={formSubmit}>
       <Link href="#" onClick={event => {
         event.preventDefault()
-        formToRender('Login')
+        setFormToRender('Login')
       }}>
         Back to login
       </Link>

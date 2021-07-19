@@ -4,14 +4,14 @@ import facebookLogo from './../../facebook-logo.png'
 import twitterLogo from './../../twitter-logo.png'
 import { Link } from '@material-ui/core'
 
-export default function SignUp ({ formToRender }) {
+export default function SignUp ({ setFormToRender }) {
   return (
     <div className="signup-wrapper">
       <label>don't have account yet?</label>
       <p>
         <Link href="#" className="register" onClick={event => {
           event.preventDefault()
-          formToRender('Register')
+          setFormToRender('Register')
         }}>
           Register
         </Link>

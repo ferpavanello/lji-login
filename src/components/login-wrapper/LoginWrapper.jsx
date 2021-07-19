@@ -3,12 +3,12 @@ import FormTitle from './../form-title/FormTitle'
 import LoginForm from './../login-form/LoginForm'
 import SignUp from './../sign-up/SignUp'
 
-export default function Loginrapper ({ formToRender }) {
+export default function Loginrapper ({ setFormToRender, setNotificationInfo }) {
   return (
     <div>
       <FormTitle content="Login to continue" />
-      <LoginForm formToRender={formToRender} />
-      <SignUp formToRender={formToRender} />
+      <LoginForm setFormToRender={setFormToRender} setNotificationInfo={setNotificationInfo} />
+      <SignUp setFormToRender={setFormToRender} />
     </div>
   )
 }
