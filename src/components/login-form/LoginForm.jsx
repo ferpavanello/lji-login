@@ -4,15 +4,17 @@ import { Button, Link } from '@material-ui/core'
 import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
 import RemeberMe from './../remember-me/RememberMe'
+import apiRequest from './../../utils/apiRequest'
 
 export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   const [loginData, setLoginData] = useState({});
 
-  async function formSubmit(event) {
+  function formSubmit (event) {
     event.preventDefault();
 
-    const data = JSON.stringify({
-      query: `{
+    const query = {
+      name: 'userByFields',
+      body: `{
         userByFields(filter: {
           email:"${loginData.email}",
           password:"${loginData.password}"
@@ -20,37 +22,12 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
           id
         }
       }`
-    })
-  
-    const response = await fetch(
-      'https://lji-login-api.herokuapp.com',
-      {
-        method: 'post',
-        body: data,
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': data.length,
-          'User-Agent': 'Node',
-        },
-      }
-    )
-  
-    const bodyJson = await response.json()
-    const user = bodyJson.data && bodyJson.data.userByFields
-    if (user && user.id) {
-      setNotificationInfo({
-        message: 'User is logged',
-        severity: 'success',
-        openNotification: true
-      })
-      console.log(user)
-      return
     }
-    setNotificationInfo({
-      message: 'Invalid password',
-      severity: 'error',
-      openNotification: true
-    })
+    const message = {
+      success: 'User is logged',
+      error: 'Invalid password'
+    }
+    apiRequest(query, message, setNotificationInfo)
   }
 
   function collectData (data) {

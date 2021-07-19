@@ -3,15 +3,17 @@ import { Button, Link } from '@material-ui/core'
 import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
+import apiRequest from './../../utils/apiRequest'
 
 export default function RegisterForm ({ setFormToRender, setNotificationInfo }) {
   const [registerData, setRegisterData] = useState({});
 
-  async function formSubmit(event) {
+  function formSubmit (event) {
     event.preventDefault();
 
-    const data = JSON.stringify({
-      query: `
+    const query = {
+      name: 'createUser',
+      body: `
         mutation {
           createUser(newUser: {
             name: "${registerData.name}",
@@ -21,37 +23,12 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
             id
           }
         }`
-    })
-  
-    const response = await fetch(
-      'https://lji-login-api.herokuapp.com',
-      {
-        method: 'post',
-        body: data,
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': data.length,
-          'User-Agent': 'Node',
-        },
-      }
-    )
-  
-    const bodyJson = await response.json()
-    const user = bodyJson.data && bodyJson.data.createUser
-    if (user && user.id) {
-      setNotificationInfo({
-        message: 'User has been registered',
-        severity: 'success',
-        openNotification: true
-      })
-      console.log('success', user);
-      return
     }
-    setNotificationInfo({
-      message: 'Error to register the user',
-      severity: 'error',
-      openNotification: true
-    })
+    const message = {
+      success: 'User has been registered',
+      error: 'Error to register the user'
+    }
+    apiRequest(query, message, setNotificationInfo)
   }
 
   function collectData (data) {

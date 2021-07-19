@@ -2,55 +2,33 @@ import React, { useState } from 'react'
 import { Button, Link, TextField } from '@material-ui/core'
 import NameField from './../name-field/NameField'
 import EmailField from './../email-field/EmailField'
+import apiRequest from './../../utils/apiRequest'
 
 export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) {
   const [recoveryData, setRecoveryData] = useState({})
   const [userPassword, setUserPassword] = useState('')
 
-  async function formSubmit(event) {
+  async function formSubmit (event) {
     event.preventDefault();
 
-    const data = JSON.stringify({
-      query: `{
+    const query = {
+      name: 'userByFields',
+      body: `{
         userByFields(filter: {
           name:"${recoveryData.name}",
           email:"${recoveryData.email}"
         }) {
+          id
           password
         }
       }`
-    })
-  
-    const response = await fetch(
-      'https://lji-login-api.herokuapp.com',
-      {
-        method: 'post',
-        body: data,
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': data.length,
-          'User-Agent': 'Node',
-        },
-      }
-    )
-  
-    const bodyJson = await response.json()
-    const user = bodyJson.data && bodyJson.data.userByFields
-    if (user && user.password) {
-      setUserPassword(user.password)
-      setNotificationInfo({
-        message: 'User was found',
-        severity: 'success',
-        openNotification: true
-      })
-      console.log(user)
-      return
     }
-    setNotificationInfo({
-      message: 'User not found',
-      severity: 'error',
-      openNotification: true
-    })
+    const message = {
+      success: 'User was found',
+      error: 'User not found'
+    }
+    const user = await apiRequest(query, message, setNotificationInfo) || {}
+    setUserPassword(user.password || '')
   }
 
   function collectData (data) {
