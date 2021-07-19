@@ -18,10 +18,7 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
             email: "${registerData.email}",
             password: "${registerData.password}"
           }) {
-            name
-            email
-            password
-            attempts
+            id
           }
         }`
     })
@@ -41,9 +38,20 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
   
     const bodyJson = await response.json()
     const user = bodyJson.data && bodyJson.data.createUser
-    if (user) {
+    if (user && user.id) {
+      setNotificationInfo({
+        message: 'User has been registered',
+        severity: 'success',
+        openNotification: true
+      })
       console.log('success', user);
+      return
     }
+    setNotificationInfo({
+      message: 'Error to register the user',
+      severity: 'error',
+      openNotification: true
+    })
   }
 
   function collectData (data) {

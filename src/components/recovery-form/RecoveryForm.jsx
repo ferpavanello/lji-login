@@ -38,8 +38,19 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
     const user = bodyJson.data && bodyJson.data.userByFields
     if (user && user.password) {
       setUserPassword(user.password)
+      setNotificationInfo({
+        message: 'User was found',
+        severity: 'success',
+        openNotification: true
+      })
       console.log(user)
+      return
     }
+    setNotificationInfo({
+      message: 'User not found',
+      severity: 'error',
+      openNotification: true
+    })
   }
 
   function collectData (data) {
