@@ -1,3 +1,12 @@
 .forgot-password {
   float: right;
 }
+
+@media (max-width: 450px) {
+  .forgot-password {
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+}

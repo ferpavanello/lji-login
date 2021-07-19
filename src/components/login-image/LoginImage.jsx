@@ -1,4 +1,5 @@
 import React from 'react'
+import './LoginImage.css'
 import treesImage from './../../path-between-trees.jpg';
 
 function LoginImage() {

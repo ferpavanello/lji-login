@@ -2,3 +2,10 @@
   display: grid;
   grid-template-columns: 6fr 6fr;
 }
+
+@media (max-width: 950px) {
+  .app-wrapper {
+    display: block;
+    position: relative;
+  }
+}
