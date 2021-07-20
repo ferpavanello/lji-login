@@ -13,6 +13,7 @@ import apiRequest from './../../utils/apiRequest'
 export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) {
   const [recoveryData, setRecoveryData] = useState({})
   const [userPassword, setUserPassword] = useState('')
+  const [formValidation, setFormValidation] = useState({})
 
   /**
    * Triggers the event to change the notification content
@@ -28,11 +29,22 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
   }
 
   /**
-   * Sends a query to the GraphQL API and notificate the user according to this
-   * @param { Event } event form event
+   * Check if form has some error
+   * @returns { boolean }
    */
-  async function formSubmit (event) {
-    event.preventDefault();
+   function isValidForm () {
+    return Object.keys(formValidation).every(key => formValidation[key])
+  }
+
+  /**
+   * Sends a query to the GraphQL API and notificate the user according to this
+   * @returns { void }
+   */
+  async function formSubmit () {
+    if (!isValidForm()) {
+      sendNotification('Verify the form fields', 'error')
+      return
+    }
 
     const query = {
       name: 'userByFields',
@@ -63,7 +75,10 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
   }
 
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={event => {
+      event.preventDefault()
+      formSubmit()
+    }}>
       <Link href="#" onClick={event => {
         event.preventDefault()
         setFormToRender('Login')
@@ -71,7 +86,7 @@ export default function RecoveryForm ({ setFormToRender, setNotificationInfo }) 
         Back to login
       </Link>
       <NameField collectData={collectData} />
-      <EmailField collectData={collectData} />
+      <EmailField collectData={collectData} setFormValidation={setFormValidation} />
       <TextField
         value={userPassword}
         id="userPassword"

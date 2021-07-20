@@ -15,6 +15,7 @@ import apiRequest from './../../utils/apiRequest'
 
 export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   const [loginData, setLoginData] = useState({})
+  const [formValidation, setFormValidation] = useState({})
 
   /**
    * Triggers the event to change the notification content
@@ -30,11 +31,22 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   }
 
   /**
-   * Sends a mutation to the GraphQL API and notificate the user according to this
-   * @param { Event } event form event
+   * Check if form has some error
+   * @returns { boolean }
    */
-  async function formSubmit (event) {
-    event.preventDefault();
+   function isValidForm () {
+    return Object.keys(formValidation).every(key => formValidation[key])
+  }
+
+  /**
+   * Sends a mutation to the GraphQL API and notificate the user according to this
+   * @returns { void }
+   */
+  async function formSubmit () {
+    if (!isValidForm()) {
+      sendNotification('Verify the form fields', 'error')
+      return
+    }
 
     const query = {
       name: 'userLogin',
@@ -68,8 +80,11 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   }
 
   return (
-    <form onSubmit={formSubmit}>
-      <EmailField collectData={collectData} />
+    <form onSubmit={event => {
+      event.preventDefault()
+      formSubmit()
+    }}>
+      <EmailField collectData={collectData} setFormValidation={setFormValidation} />
       <PasswordField collectData={collectData} />
       <RemeberMe collectData={collectData} />
       <Link href="#" className="forgot-password" onClick={event => {

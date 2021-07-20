@@ -13,7 +13,8 @@ import apiRequest from './../../utils/apiRequest'
  */
 
 export default function RegisterForm ({ setFormToRender, setNotificationInfo }) {
-  const [registerData, setRegisterData] = useState({});
+  const [registerData, setRegisterData] = useState({})
+  const [formValidation, setFormValidation] = useState({})
 
   /**
    * Triggers the event to change the notification content
@@ -29,11 +30,22 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
   }
 
   /**
-   * Sends a mutation to the GraphQL API and notificate the user according to this
-   * @param { Event } event form event
+   * Check if form has some error
+   * @returns { boolean }
    */
-  async function formSubmit (event) {
-    event.preventDefault();
+  function isValidForm () {
+    return Object.keys(formValidation).every(key => formValidation[key])
+  }
+
+  /**
+   * Sends a mutation to the GraphQL API and notificate the user according to this
+   * @returns { void }
+   */
+  async function formSubmit () {
+    if (!isValidForm()) {
+      sendNotification('Verify the form fields', 'error')
+      return
+    }
 
     const query = {
       name: 'createUser',
@@ -65,7 +77,10 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
   }
 
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={event => {
+      event.preventDefault()
+      formSubmit()
+    }}>
       <Link href="#" onClick={event => {
         event.preventDefault()
         setFormToRender('Login')
@@ -73,7 +88,7 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
         Back to login
       </Link>
       <NameField collectData={collectData} />
-      <EmailField collectData={collectData} />
+      <EmailField collectData={collectData} setFormValidation={setFormValidation} />
       <PasswordField collectData={collectData} />
       <Button type="submit" variant="contained" color="primary" fullWidth>
         Register

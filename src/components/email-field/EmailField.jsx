@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
 
-export default function EmailField ({ collectData }) {
+export default function EmailField ({ collectData, setFormValidation }) {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState({ message: '', isValid: true })
 
@@ -27,8 +27,10 @@ export default function EmailField ({ collectData }) {
         isValid: false,
         message: 'This is not a valid email.'
       })
+      setFormValidation({ email: false })
       return
     }
+    setFormValidation({ email: true })
     setEmailError({ isValid: true, message: '' })
     setEmail(emailContent)
     collectData({ email: emailContent })
