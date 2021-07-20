@@ -6,9 +6,21 @@ import PasswordField from './../password-field/PasswordField'
 import RemeberMe from './../remember-me/RememberMe'
 import apiRequest from './../../utils/apiRequest'
 
+/**
+ * @typedef LoginData
+ * @property { string } [email]
+ * @property { string } [password]
+ * @property { boolean } [rememberMe]
+ */
+
 export default function LoginForm({ setFormToRender, setNotificationInfo }) {
   const [loginData, setLoginData] = useState({})
 
+  /**
+   * Triggers the event to change the notification content
+   * @param { string } message
+   * @param { string } severity
+   */
   function sendNotification (message, severity) {
     setNotificationInfo({
       message,
@@ -17,6 +29,10 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
     })
   }
 
+  /**
+   * Sends a mutation to the GraphQL API and notificate the user according to this
+   * @param { Event } event form event
+   */
   async function formSubmit (event) {
     event.preventDefault();
 
@@ -43,6 +59,10 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
     }
   }
 
+  /**
+   * Concats the stored login data with the new
+   * @param { LoginData } data
+   */
   function collectData (data) {
     setLoginData({ ...loginData, ...data })
   }

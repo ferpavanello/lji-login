@@ -5,6 +5,9 @@ import { Alert } from '@material-ui/lab'
 export default function Notification ({ notificationInfo, setNotificationInfo }) {
   const { message, severity, openNotification=false } = notificationInfo
 
+  /**
+   * Handles with the closing of the notification
+   */
   function handleClose () {
     setNotificationInfo({ openNotification: false })
   }

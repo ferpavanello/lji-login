@@ -5,9 +5,21 @@ import EmailField from './../email-field/EmailField'
 import PasswordField from './../password-field/PasswordField'
 import apiRequest from './../../utils/apiRequest'
 
+/**
+ * @typedef RegisterData
+ * @property { string } [name]
+ * @property { string } [email]
+ * @property { string } [password]
+ */
+
 export default function RegisterForm ({ setFormToRender, setNotificationInfo }) {
   const [registerData, setRegisterData] = useState({});
 
+  /**
+   * Triggers the event to change the notification content
+   * @param { string } message
+   * @param { string } severity
+   */
   function sendNotification (message, severity) {
     setNotificationInfo({
       message,
@@ -16,6 +28,10 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
     })
   }
 
+  /**
+   * Sends a mutation to the GraphQL API and notificate the user according to this
+   * @param { Event } event form event
+   */
   async function formSubmit (event) {
     event.preventDefault();
 
@@ -40,6 +56,10 @@ export default function RegisterForm ({ setFormToRender, setNotificationInfo }) 
     }
   }
 
+  /**
+   * Concats the stored recovery data with the new
+   * @param { RegisterData } data
+   */
   function collectData (data) {
     setRegisterData({ ...registerData, ...data })
   }

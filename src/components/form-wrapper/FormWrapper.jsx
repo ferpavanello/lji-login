@@ -9,6 +9,10 @@ export default function FormWrapper () {
   const [formToRender, setFormToRender] = useState('Login')
   const [notificationInfo, setNotificationInfo] = useState({});
 
+  /**
+   * Switchs between forms (Login, Register and Recovery) according to 'formToRender' state
+   * @returns { ReactElement }
+   */
   function formComponent () {
     switch (formToRender) {
       case 'Register':

@@ -5,11 +5,21 @@ export default function EmailField ({ collectData }) {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState({ message: '', isValid: true })
 
+  /**
+   * Checks if email is valid
+   * @param { string } content 
+   * @returns { boolean }
+   */
   function isValidEmail (content) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(content)
   }
 
+  /**
+   * Makes content validation and sets the possible errors
+   * @param { Event } event
+   * @returns { void }
+   */
   function emailValidation (event){
     const emailContent = event.target.value;
     if (!isValidEmail(emailContent)) {
