@@ -18,7 +18,7 @@ describe('EmailField', () => {
   })
 
   it('Shows error when it is typed an invalid email', () => {
-    mount(<EmailField collectData={() => {}} />)
+    mount(<EmailField collectData={() => {}} setFormValidation={() => {}} />)
     cy.get('#email').type('invalid-email.com').blur()
     cy.get('#email-helper-text').should('have.text', 'This is not a valid email.')
   })
