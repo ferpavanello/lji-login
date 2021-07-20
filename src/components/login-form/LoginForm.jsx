@@ -7,7 +7,7 @@ import RemeberMe from './../remember-me/RememberMe'
 import apiRequest from './../../utils/apiRequest'
 
 export default function LoginForm({ setFormToRender, setNotificationInfo }) {
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useState({})
 
   function sendNotification (message, severity) {
     setNotificationInfo({
@@ -34,7 +34,6 @@ export default function LoginForm({ setFormToRender, setNotificationInfo }) {
         }`
     }
     const apiResponse = await apiRequest(query)
-    console.log('apiResponse', apiResponse)
     if (apiResponse.isBlocked) {
       sendNotification('User is blocked', 'error')
     } else if (apiResponse.isLoginCorrect) {
