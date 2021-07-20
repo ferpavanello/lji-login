@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css';
-import LoginImage from './components/login-image/LoginImage'
 import FormWrapper from './components/form-wrapper/FormWrapper'
 
 export default function App() {
   return (
     <div className="app-wrapper">
-      <LoginImage />
+      <div className="login-image"></div>
       <FormWrapper />
     </div>
   );

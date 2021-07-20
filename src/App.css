@@ -3,9 +3,20 @@
   grid-template-columns: 6fr 6fr;
 }
 
+.login-image {
+  height: 100vh;
+  width: 100%;
+  background: url('./assets/path-between-trees.jpg') no-repeat center;
+}
+
 @media (max-width: 950px) {
   .app-wrapper {
     display: block;
     position: relative;
+  }
+
+  .login-image {
+    position: absolute;
+    opacity: 0.2;
   }
 }
