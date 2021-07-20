@@ -10,7 +10,7 @@ export default function Notification ({ notificationInfo, setNotificationInfo })
   }
   
   return (
-    <Snackbar open={openNotification} autoHideDuration={4000} onClose={handleClose}>
+    <Snackbar className="notification" open={openNotification} autoHideDuration={4000} onClose={handleClose}>
       <Alert onClose={handleClose} severity={severity}>
         {message}
       </Alert>
