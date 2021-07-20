@@ -1,6 +1,6 @@
 import React from 'react'
 import './LoginImage.css'
-import treesImage from './../../path-between-trees.jpg';
+import treesImage from './../../assets/path-between-trees.jpg';
 
 function LoginImage() {
   return (

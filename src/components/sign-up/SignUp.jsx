@@ -1,7 +1,7 @@
 import React from 'react'
 import './SignUp.css'
-import facebookLogo from './../../facebook-logo.png'
-import twitterLogo from './../../twitter-logo.png'
+import facebookLogo from './../../assets/facebook-logo.png'
+import twitterLogo from './../../assets/twitter-logo.png'
 import { Link } from '@material-ui/core'
 
 export default function SignUp ({ setFormToRender }) {
